@@ -1,11 +1,15 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { View, Text, StyleSheet , BackHandler} from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-export const ShippingsView = ({ shipment }) => {
+export const ShippingsView = ({navigation,route}) => {
+    const {shipment} = route.params;
+    useEffect(() => {
+        BackHandler.addEventListener("hardwareBackPress", () => false)
+      }, []);
     const [region, setRegion] = useState({
         latitude: 4.624335,
         longitude: -74.063644,
@@ -21,15 +25,15 @@ export const ShippingsView = ({ shipment }) => {
             <View style={styles.body}>
                 <View style={styles.row}>
                     <Icon name="user" size={RFPercentage(2.5)} style={styles.icon} />
-                    <Text style={styles.infoText}>{shipment.usuario}</Text>
+                    <Text style={styles.infoText}>{shipment.nombreUsuario}</Text>
                 </View>
                 <View style={styles.row}>
                     <Icon name="truck" size={RFPercentage(2.5)} style={styles.icon} />
-                    <Text style={styles.infoText}>{shipment.proveedor}</Text>
+                    <Text style={styles.infoText}>{shipment.nombreProveedor}</Text>
                 </View>
                 <View style={styles.row}>
                     <Icon name="calendar" size={RFPercentage(2.5)} style={styles.icon} />
-                    <Text style={styles.infoText}>{shipment.fechaEntrega}</Text>
+                    <Text style={styles.infoText}>{shipment.date}</Text>
                 </View>
             </View>
             <MapView

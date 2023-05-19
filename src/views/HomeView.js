@@ -20,14 +20,16 @@ export const HomeView = ({ navigation, route }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     if(shippingStatus === STATUS.NONE || shippingCreateStatus === STATUS.SUCCESS || shippingUpdateStatus === STATUS.SUCCESS){
-      dispatch(getAllShippings())
+      setTimeout(() => {
+        dispatch(getAllShippings())
+      }, 2000);
     }
   }, [shippingCreateStatus,shippingUpdateStatus]);
-  useEffect(() => {
-    if (route.name === 'Home') {
-      BackHandler.addEventListener("hardwareBackPress", () => true)
-    }
-  }, [route.name])
+  // useEffect(() => {
+  //   if (route.name === 'Home') {
+  //     BackHandler.addEventListener("hardwareBackPress", () => true)
+  //   }
+  // }, [route.name])
 
   useEffect(() => {
     setshipps(shippings);
